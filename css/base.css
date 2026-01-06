@@ -1,0 +1,36 @@
+/* Base Resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f8fafc; /* Very light gray/blue professional background */
+    color: #1e293b;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+:root {
+    /* Brand Primary: Navy Blue */
+    --accent-navy: #0f172a;
+    --accent-navy-rgb: 15, 23, 42;
+
+    /* Brand Secondary: Emerald Green */
+    --accent-emerald: #10b981;
+    --accent-emerald-rgb: 16, 185, 129;
+
+    /* Gold as a Tertiary/Highlight color if needed */
+    --accent-gold: #d4af37;
+    --accent-gold-rgb: 212, 175, 55;
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manolito Wealth Management</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body class="fixed-view">
+
+    <nav class="navbar">
+        <div class="logo"><a href="javascript:void(0)" data-view="home" data-i18n="nav_mwm">MWM</a></div>
+        <ul class="nav-links">
+            <li><a href="javascript:void(0)" data-view="home" data-i18n="nav_home">Home</a></li>
+            <li><a href="javascript:void(0)" data-view="diy" data-i18n="nav_diy">DIY</a></li>
+            <li><a href="javascript:void(0)" data-view="mwa" data-i18n="nav_mwa">Academy</a></li>
+			<li id="admin-nav-item" style="display: none;">
+				<a href="#" data-view="admin" data-i18n="nav_admin" style="color: #f39c12;">Admin Console</a>
+			</li>
+            <li>
+                <select id="language-selector">
+                    <option value="en">EN</option>
+                    <option value="es">ES</option>
+                    <option value="fr">FR</option>
+                    <option value="de">DE</option>
+                </select>
+            </li>
+            <li id="auth-nav-item">
+                <a href="login_SPA/index_SPA.html" id="auth-action-link" data-i18n="nav_login">Login</a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="container" id="main-content-area">
+        <header class="home-header">
+            <h1 data-i18n="hero_title">Manolito Wealth Management</h1>
+            <div class="hero-subtitle-block">
+                <p class="subtitle-main" data-i18n="hero_subtitle_1">Get Inspired! Act! Protect yourself!</p>
+                <p class="subtitle-secondary" data-i18n="hero_subtitle_2">The sooner the better.</p>
+                <p class="subtitle-extra" data-i18n="hero_subtitle_3">If you don't want your money, someone else will.</p>
+            </div>
+        </header>
+
+        <div class="grid-wrapper">
+            <a href="javascript:void(0)" onclick="Hydrator.handleProtectedNavigation('diy')" class="branch-card">
+                <div class="card-image-container">
+                    <img src="images/DIY.png" alt="DIY" class="branch-img">
+                </div>
+                <div class="card-content">
+                    <h3 data-i18n="card1_title">DIY</h3>
+                    <p class="card-description" data-i18n="card1_desc">Discover our state-of-the-art toolset</p>
+                </div>
+            </a>
+
+            <a href="javascript:void(0)" onclick="Hydrator.handleProtectedNavigation('mwa')" class="branch-card">
+                <div class="card-image-container">
+                    <img src="images/Academy.png" alt="Academy" class="branch-img">
+                </div>
+                <div class="card-content">
+                    <h3 data-i18n="card2_title">Academy</h3>
+                    <p class="card-description" data-i18n="card2_desc">Get in the driver seat of your financial independence</p>
+                </div>
+            </a>
+
+            <a href="javascript:void(0)" onclick="Hydrator.handleProtectedNavigation('follow')" class="branch-card">
+                <div class="card-image-container">
+                    <img src="images/Follow_Me.png" alt="Follow my lead" class="branch-img">
+                </div>
+                <div class="card-content">
+                    <h3 data-i18n="card3_title">Follow my lead</h3>
+                    <p class="card-description" data-i18n="card3_desc">Worst case, trust my portfolio...you lazy bastard</p>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+	<script src="js_SPA/languages_SPA.js"></script>
+    <script src="js_SPA/main_SPA.js"></script>
+    <script src="js_SPA/animations_SPA.js"></script>
+    <script src="js_SPA/hydrator.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+/* --- GLOBAL RESETS & DEFAULTS --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fcfcfc;
+    font-family: sans-serif;
+    min-height: 100vh;
+    color: #1e293b;
+}
+
+/* --- THE GATEKEEPERS --- */
+
+/* Home State: Locked */
+body.fixed-view {
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* Tool State: Unlocked (Matches your components.css) */
+body.view-scrollable {
+    overflow-y: auto !important; 
+    overflow-x: hidden;
+    height: auto !important;
+    min-height: 100vh;
+}
+
+/* --- NAVIGATION --- */
+.navbar {
+    height: 8vh; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5vw;
+    background-color: #0f172a;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 3vw; 
+    list-style: none;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+/* --- MAIN CONTAINER --- */
+.container {
+    width: 100%;
+    /* Dashboard uses 92vh, Registration will expand naturally */
+    min-height: 92vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: center;
+    padding: 2vh 5vw 0 5vw; 
+    position: relative;
+}
+
+/* --- VIEW LOGIC (Dashboard Switching) --- */
+#selection-view {
+    display: none; 
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    flex-grow: 1;
+}
+
+#selection-view.active {
+    display: flex; 
+}
+
+.view-section {
+    display: none; 
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.view-section.active {
+    display: flex; 
+}
+
+/* --- HEADERS & TITLES --- */
+.home-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin-bottom: 3vh; 
+    flex-shrink: 0;
+}
+
+.home-header h1 {
+    font-size: clamp(2rem, 4.5vh, 3.2rem);
+    color: #0f172a;
+    margin-bottom: 0.8vh;
+    text-align: center;
+}
+
+.view-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.view-title {
+    flex-grow: 1;
+    text-align: center;
+    color: #0f172a;
+    font-size: 1.5rem;
+    margin-right: 100px; 
+}
+
+/* --- LAYOUT WRAPPERS --- */
+.grid-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    gap: 4vw;
+    width: 95%; 
+    height: 64vh; 
+}
+
+.tool-accordion-container {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5vh;
+    padding-bottom: 4vh;
+}
+
+/* --- UTILITY CLASSES --- */
+.full-width { width: 100%; }
