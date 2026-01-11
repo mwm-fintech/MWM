@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Language Logic
     const langSelector = document.getElementById('language-selector');
     if (langSelector) {
-        const savedLang = localStorage.getItem('mwm_lang') || 'en';
+        const savedLang = localStorage.getItem('selectedLanguage') || 'en';
         langSelector.value = savedLang;
         window.applyTranslations(savedLang);
 
