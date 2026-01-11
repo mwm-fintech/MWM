@@ -1,6 +1,6 @@
 /**
- * MWM Hydrator: Role-Aware SPA Orchestrator
- * Optimized for Modular MWA subfolders and Root-level DIY legacy files.
+ * MWM Hydrator: Universal Key-Matching Orchestrator
+ * Specifically handles root-level (diy-ui) and modular (mwa_1_...) naming conventions.
  */
 window.Hydrator = {
     package: null,
@@ -14,25 +14,20 @@ window.Hydrator = {
                          this.package['admin_index_html'] || 
                          this.package['admin_html'];
         
-        if (adminLink && hasAdmin) {
-            adminLink.style.display = 'block';
-        }
+        if (adminLink && hasAdmin) adminLink.style.display = 'block';
 
         this.updateNavStatus(true);
         this.initGlobalNavigation();
     },
 
-    renderHome: function() {
-        window.location.href = 'index.html'; 
-    },
+    renderHome: function() { window.location.href = 'index.html'; },
 
     initGlobalNavigation: function() {
         const handleClicks = (e) => {
             const anchor = e.target.closest('a');
             if (!anchor) return;
-            const href = anchor.getAttribute('href');
             const dataView = anchor.getAttribute('data-view');
-            if (dataView || href === '#') {
+            if (dataView || anchor.getAttribute('href') === '#') {
                 if (dataView === 'home' || anchor.classList.contains('nav-home')) {
                     e.preventDefault();
                     this.renderHome();
@@ -65,55 +60,53 @@ window.Hydrator = {
         const stage = document.getElementById('main-content-area');
         if (!stage) return;
 
-        // 1. Identify HTML (Checks both prefix_html and prefix_index_html)
-        const htmlKey = this.package[`${prefix}_${prefix}_html`] || 
-                        this.package[`${prefix}_index_html`] || 
-                        this.package[`${prefix}_html`];
+        const p = prefix.toLowerCase();
 
-        // 2. HYBRID JS COLLECTOR (Fixes DIY + MWA)
+        // 1. Find HTML (Checks for mwa_mwa_html, mwa_index_html, or mwa_html)
+        const htmlKey = this.package[`${p}_${p}_html`] || 
+                        this.package[`${p}_index_html`] || 
+                        this.package[`${p}_html`];
+
+        // 2. UNIVERSAL JS COLLECTOR
         let combinedJs = "";
         let foundJsKeys = [];
         
-        Object.keys(this.package).forEach(key => {
-            // EXACT MATCH: For root files (e.g., "diy_js")
-            const isExact = (key === `${prefix}_js` || key === `${prefix}_ui_js` || key === `${prefix}_${prefix}_js`);
-            // PARTIAL MATCH: For subfolder files (e.g., "mwa_js_1_content_js")
-            const isPartial = (key.startsWith(`${prefix}_js_`) || key.startsWith(`${prefix}_ui_js_`));
+        // Sorting keys ensures mwa_1_... comes before mwa_8_...
+        const sortedKeys = Object.keys(this.package).sort();
 
-            if (isExact || isPartial) {
+        sortedKeys.forEach(key => {
+            const k = key.toLowerCase();
+            // Match any key that starts with our prefix (e.g. "mwa_") and ends with "js"
+            if (k.startsWith(`${p}_`) && k.endsWith('_js')) {
                 foundJsKeys.push(key);
+                // Glue code with semicolons for safety
                 combinedJs += `\n;/* Source: ${key} */\n${this.package[key]};\n`;
             }
         });
                                 
-        // 3. HYBRID CSS COLLECTOR
+        // 3. UNIVERSAL CSS COLLECTOR
         let combinedCss = "";
-        Object.keys(this.package).forEach(key => {
-            const isExact = (key === `${prefix}_css` || key === `${prefix}_style_css` || key === `${prefix}_${prefix}_css`);
-            const isPartial = (key.startsWith(`${prefix}_css_`));
-
-            if (isExact || isPartial) {
+        sortedKeys.forEach(key => {
+            const k = key.toLowerCase();
+            if (k.startsWith(`${p}_`) && (k.endsWith('_css') || k.includes('_style'))) {
                 combinedCss += `\n/* Source: ${key} */\n${this.package[key]}\n`;
             }
         });
 
-        const isToolCard = ['diy', 'mwa', 'follow'].includes(prefix);
+        const isToolCard = ['diy', 'mwa', 'follow'].includes(p);
 
         if (htmlKey) {
-            console.log(`MWM: Rendering ${prefix}. Injected JS Keys:`, foundJsKeys);
+            console.log(`MWM: Rendering ${p}. Injected JS Keys:`, foundJsKeys);
             this.injectContent(stage, htmlKey, combinedJs, combinedCss);
         } 
         else if (isToolCard) {
-            const p = 'early_adopter';
-            const gateHtml = this.package[`${p}_index_html`] || this.package[`${p}_html`];
-            const gateCss =  this.package[`${p}_css`];
-            const gateJs =   this.package[`${p}_js`];
-            const gateTransJs = this.package[`${p}_translations_js`];
-
-            if (gateHtml) {
-                const safeTrans = gateTransJs ? `;(function(){ ${gateTransJs} })();` : '';
-                const safeJs    = gateJs      ? `;(function(){ ${gateJs} })();`      : '';
-                this.injectContent(stage, gateHtml, `${safeTrans}\n${safeJs}`, gateCss);
+            // Early Adopter Fallback
+            const gate = 'early_adopter';
+            const gHtml = this.package[`${gate}_index_html`] || this.package[`${gate}_html`];
+            const gCss = this.package[`${gate}_css`];
+            const gJs = this.package[`${gate}_js`];
+            if (gHtml) {
+                this.injectContent(stage, gHtml, `;(function(){${gJs}})();`, gCss);
             }
         }
     },
