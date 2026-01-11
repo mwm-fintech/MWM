@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         langSelector.addEventListener('change', (e) => {
             const newLang = e.target.value;
             window.applyTranslations(newLang);
-            localStorage.setItem('mwm_lang', newLang);
+            localStorage.setItem('selectedLanguage', newLang);
         });
     }
 
